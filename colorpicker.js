@@ -298,13 +298,8 @@
             this.pickerElement.innerHTML = picker;            
         }
 
-        if (window.PointerEvent) {
-            addEventListener(this.slideElement, 'pointerup', slideListener(this, this.slideElement, this.pickerElement));
-            addEventListener(this.pickerElement, 'pointerup', pickerListener(this, this.pickerElement));
-        } else {
-            addEventListener(this.slideElement, 'click', slideListener(this, this.slideElement, this.pickerElement));
-            addEventListener(this.pickerElement, 'click', pickerListener(this, this.pickerElement));
-        }
+        addEventListener(this.slideElement, 'click', slideListener(this, this.slideElement, this.pickerElement));
+        addEventListener(this.pickerElement, 'click', pickerListener(this, this.pickerElement));
 
         enableDragging(this, this.slideElement, slideListener(this, this.slideElement, this.pickerElement));
         enableDragging(this, this.pickerElement, pickerListener(this, this.pickerElement));
