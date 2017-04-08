@@ -187,6 +187,8 @@
         return function(evt) {
             evt = evt || window.event;
             var mouse = mousePosition(evt);
+            mouse.y = mouse.y > slideElement.clientHeight ? slideElement.clientHeight : mouse.y;
+            mouse.y = mouse.y < 0 ? 0 : mouse.y;
             ctx.h = mouse.y / slideElement.offsetHeight * 360 + hueOffset;
             var pickerColor = hsv2rgb({ h: ctx.h, s: 1, v: 1 });
             var c = hsv2rgb({ h: ctx.h, s: ctx.s, v: ctx.v });
@@ -205,6 +207,11 @@
             var mouse = mousePosition(evt),
                 width = pickerElement.offsetWidth,            
                 height = pickerElement.offsetHeight;
+
+            mouse.x = mouse.x > pickerElement.clientWidth ? pickerElement.clientWidth : mouse.x;
+            mouse.x = mouse.x < 0 ? 0 : mouse.x;
+            mouse.y = mouse.y > pickerElement.clientHeight ? pickerElement.clientHeight : mouse.y;
+            mouse.y = mouse.y < 0 ? 0 : mouse.y;
 
             ctx.s = mouse.x / width;
             ctx.v = (height - mouse.y) / height;
@@ -291,8 +298,13 @@
             this.pickerElement.innerHTML = picker;            
         }
 
-        addEventListener(this.slideElement, 'click', slideListener(this, this.slideElement, this.pickerElement));
-        addEventListener(this.pickerElement, 'click', pickerListener(this, this.pickerElement));
+        if (window.PointerEvent) {
+            addEventListener(this.slideElement, 'pointerup', slideListener(this, this.slideElement, this.pickerElement));
+            addEventListener(this.pickerElement, 'pointerup', pickerListener(this, this.pickerElement));
+        } else {
+            addEventListener(this.slideElement, 'click', slideListener(this, this.slideElement, this.pickerElement));
+            addEventListener(this.pickerElement, 'click', pickerListener(this, this.pickerElement));
+        }
 
         enableDragging(this, this.slideElement, slideListener(this, this.slideElement, this.pickerElement));
         enableDragging(this, this.pickerElement, pickerListener(this, this.pickerElement));
@@ -320,16 +332,26 @@
         
         var mousedown = false;
 
-        addEventListener(element, 'mousedown', function(evt) { mousedown = true;  });
-        addEventListener(element, 'mouseup',   function(evt) { mousedown = false;  });
-        addEventListener(element, 'mouseout',  function(evt) { mousedown = false;  });
-        addEventListener(element, 'mousemove', function(evt) {
+        if (window.PointerEvent) {
+            addEventListener(element, 'pointerdown', function(evt) { mousedown = true;  });
+            addEventListener(element, 'pointerup',   function(evt) { mousedown = false;  });
+            addEventListener(element, 'pointerout',  function(evt) { mousedown = false;  });
+            addEventListener(element, 'pointermove', function(evt) {
+                if (mousedown) {
+                    listener(evt);
+                }
+            });
 
-            if (mousedown) {
-                
-                listener(evt);
-            }
-        });
+        } else {
+            addEventListener(element, 'mousedown', function(evt) { mousedown = true;  });
+            addEventListener(element, 'mouseup',   function(evt) { mousedown = false;  });
+            addEventListener(element, 'mouseout',  function(evt) { mousedown = false;  });
+            addEventListener(element, 'mousemove', function(evt) {
+                if (mousedown) {
+                    listener(evt);
+                }
+            });
+        }
     }
 
 

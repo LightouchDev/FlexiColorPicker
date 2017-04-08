@@ -13,6 +13,7 @@
 }
 .picker,
 .slide {
+    touch-action: none;
     cursor: crosshair;
     float: left;
 }
