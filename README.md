@@ -311,7 +311,7 @@ if you require [Pointer Events Polyfill](https://github.com/jquery/PEP) and don'
         <div id="slider-indicator"></div>
     </div>
 ```
-Recommend to place in a big wrapper and set touch-action="none", to prevent to fire default event like page scroll. 
+Recommend to place in a big wrapper and set `touch-action="none"`, to prevent to fire default event like page scroll. 
 ```html
     <div id="colorpicker" touch-action="none">
         <div id="picker-wrapper">
