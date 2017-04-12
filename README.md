@@ -274,9 +274,28 @@ and also fixes and positions indicators automatically.
 
 Pointer Events
 ========
-If you require more widely support with mobile or touch device, you may need include [Pointer Events Polyfill](https://github.com/jquery/PEP) for un-supported browser.
+If you require more widely support with mobile or touch device, you should add `touch-action="none"` to css like:
+```css
+<!-- basic -->
+    #picker { width: 200px; height: 200px; touch-action: none; }
+    #slider { width: 30px; height: 200px; touch-action: none; }
 
-if you don't want to use [**No hassle**](#no-hassle) method, please add `touch-action="none"` attribute to Element like:
+<!-- advanced -->
+    #picker-wrapper {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        touch-action: none;
+    }
+    #slider-wrapper {
+        width: 30px;
+        height: 200px;
+        position: relative;
+        touch-action: none;
+    }
+```
+
+if you require [Pointer Events Polyfill](https://github.com/jquery/PEP) and don't want to use [**No hassle**](#no-hassle) method, according to [Polyfill limitations](https://github.com/jquery/PEP#polyfill-limitations), please add `touch-action="none"` attribute to element like:
 ```html
 <!-- basic method -->
     <div id="picker" touch-action="none"></div>
