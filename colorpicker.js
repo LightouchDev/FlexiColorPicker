@@ -13,11 +13,11 @@
     var colorpickerHTMLSnippet = [
         
         '<div class="picker-wrapper">',
-                '<div class="picker"></div>',
+                '<div class="picker" touch-action="none"></div>',
                 '<div class="picker-indicator"></div>',
         '</div>',
         '<div class="slide-wrapper">',
-                '<div class="slide"></div>',
+                '<div class="slide" touch-action="none"></div>',
                 '<div class="slide-indicator"></div>',
         '</div>'
         
@@ -37,6 +37,11 @@
         }
         // Firefox:
         var wrapper = evt.target.parentNode.parentNode;
+        // Firefox PE fix
+        if (!evt.layerX) {
+            wrapper = wrapper.getBoundingClientRect();
+            return { x: evt.screenX - wrapper.x, y: evt.screenY - wrapper.y};
+        }
         return { x: evt.layerX - wrapper.offsetLeft, y: evt.layerY - wrapper.offsetTop };
     }
 
