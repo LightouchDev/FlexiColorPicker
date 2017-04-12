@@ -35,13 +35,13 @@
         if (evt.offsetX !== undefined && evt.offsetY !== undefined) {
             return { x: evt.offsetX, y: evt.offsetY };
         }
-        // Firefox:
         var wrapper = evt.target.parentNode.parentNode;
-        // Firefox PE fix
-        if (!evt.layerX) {
+        // PEP fix
+        if (typeof evt.offsetX === 'undefined') {
             wrapper = wrapper.getBoundingClientRect();
-            return { x: evt.screenX - wrapper.x, y: evt.screenY - wrapper.y};
+            return { x: evt.pageX - wrapper.x, y: evt.pageY - wrapper.y};
         }
+        // Firefox:
         return { x: evt.layerX - wrapper.offsetLeft, y: evt.layerY - wrapper.offsetTop };
     }
 
