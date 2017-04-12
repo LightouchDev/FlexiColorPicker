@@ -276,7 +276,7 @@ Pointer Events
 ========
 If you require more widely support with mobile or touch device, you may need include [Pointer Events Polyfill](https://github.com/jquery/PEP) for un-supported browser.
 
-if you doesn't use [**No hassle**](#no-hassle) method, please add `touch-action` attribute to Element like:
+if you don't want to use [**No hassle**](#no-hassle) method, please add `touch-action="none"` attribute to Element like:
 ```html
 <!-- basic method -->
     <div id="picker" touch-action="none"></div>
@@ -291,11 +291,9 @@ if you doesn't use [**No hassle**](#no-hassle) method, please add `touch-action`
         <div id="slider" touch-action="none"></div>
         <div id="slider-indicator"></div>
     </div>
-
-<!-- 
-    Recommend to place in a big wrapper and set touch-action="none",
-    prevent to fire default event like page scroll. 
- -->
+```
+Recommend to place in a big wrapper and set touch-action="none", to prevent to fire default event like page scroll. 
+```html
     <div id="colorpicker" touch-action="none">
         <div id="picker-wrapper">
             <div id="picker" touch-action="none"></div>
