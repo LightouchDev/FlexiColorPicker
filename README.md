@@ -272,6 +272,44 @@ The ColorPicker function has recognized only two arguments which means that it b
 and also fixes and positions indicators automatically.
 
 
+Pointer Events
+========
+If you require more widely support with mobile or touch device, you may need include [Pointer Events Polyfill](https://github.com/jquery/PEP) for un-supported browser.
+
+if you doesn't use [**No hassle**](#no-hassle) method, please add `touch-action` attribute to Element like:
+```html
+<!-- basic method -->
+    <div id="picker" touch-action="none"></div>
+    <div id="slider" touch-action="none"></div>
+
+<!-- advanced method -->
+    <div id="picker-wrapper">
+        <div id="picker" touch-action="none"></div>
+        <div id="picker-indicator"></div>
+    </div>
+    <div id="slider-wrapper">
+        <div id="slider" touch-action="none"></div>
+        <div id="slider-indicator"></div>
+    </div>
+
+<!-- 
+    Recommend to place in a big wrapper and set touch-action="none",
+    prevent to fire default event like page scroll. 
+ -->
+    <div id="colorpicker" touch-action="none">
+        <div id="picker-wrapper">
+            <div id="picker" touch-action="none"></div>
+            <div id="picker-indicator"></div>
+        </div>
+        <div id="slider-wrapper">
+            <div id="slider" touch-action="none"></div>
+            <div id="slider-indicator"></div>
+        </div>
+    </div>
+```
+
+
+
 License
 ========
 
